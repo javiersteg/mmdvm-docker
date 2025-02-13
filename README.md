@@ -1,4 +1,67 @@
-# MMDVM by G4KLX
+CREDTIS TO -->>
+ MMDVM by G4KLX -->>
+
+I have modified it to be used on debian bookworm.
+I adapted it to use last mmdvm version.
+
+Can run on every GNU/linux machine with docker.
+That means that include Orange Pi, and other ARM archs. Just need to install docker. 
+For installation best is find the way that fits better with your OS... (Debian, Red Hat, Arch....) Yes. I'm saying that this can be installed for example on your OpenWRT router. But requires to be powerfull... For operating the DMR link and for build all the images.
+
+If you do not have idea how to do this. Ask me over telegram @javiersteg.
+Sure i will prepare an image for your architecture if it's more less common.
+
+IMPORTANT= For this test i've used a Baofeng DM-1701 with OpenGD77 (2025/02/07 Beta Firmware).
+So my connection is detected as a Serial UART TTY. (/dev/ttyACM0)
+You should need to change to the proper one that fits your device.
+
+Remember change common values for your needs. Callsign, ID, DMR or YSF master server.....
+
+I have fixed and error with the path on Dockerfile.mmdvmdashboard that was giving an error when doing CP.
+
+Steps for get it working are:
+1-Get DOCKER WORKING and COMPOSE
+2- FOR Run MMDVMHost, YSFGateway and MMDVM-Dashboard
+```console
+$ git clone https://github.com/f4hlv/mmdvm-docker.git
+$ cd mmdvm-docker
+```
+Edit docker-compose.yml and run
+Edit your radio and DMR/YSF parameters to fit your needs, TX/RX frecuencies and other parameters...
+These files are inside config folder inside the path you are now.
+
+```console
+$ docker network create webgateway
+$ docker-compose up -d
+```
+
+If you enter to the MMDVM file, there are some trace=0 and debug=0. So, if you are getting errors, good way to solve it is increase verbosity and launch docker without the "-d" argument, to avoid run it on background and be able to see realtime logs.
+
+Good Luck.
+
+## Port
+- `80:80` Port configuration. "Port host":80(container port)
+## Remove setup.php
+```console
+$ docker exec mmdvm-dashboard rm /var/www/html/setup.php
+```
+# Update
+```console
+$ docker-compose build --no-cache
+$ docker-compose up -d
+```
+
+Thanks for all these progress G4KLX
+
+
+Less important things.
+
+I'm doing this FORK because i have a Orange Pi 3 Zero.
+And i have seen that WPSD is not compatible with Orange PI, just raspberry.
+So i decided create this fork and fix this problem.
+
+My recomendation it's do this on a secure network with good walls on your network. IDK if this DMR gateway is secure and i cannot guarantee.
+
 
 ![logo](https://www.rs-online.com/designspark/rel-assets/dsauto/temp/uploaded/MMDVM.jpg?w=815)
 
