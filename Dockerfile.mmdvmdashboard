@@ -9,10 +9,10 @@ RUN apt-get update \
 
 RUN docker-php-ext-install gettext
 
-RUN git clone https://github.com/dg9vh/MMDVMHost-Dashboard.git \
-   && cp -R /MMDVMHost-Dashboard/* /var/www/html/ \ 
-   && sed -i '2iini_set("display_errors",0);error_reporting(0);' /var/www/html/index.php \
-   && chown -R www-data:www-data /var/www/html \
+RUN git clone https://github.com/dg9vh/MMDVMHost-Dashboard.git && echo 1 \
+   && ls -lisa MMDVMHost-Dashboard && cp -R MMDVMHost-Dashboard/* /var/www/html/ && echo 2\ 
+   && sed -i '2iini_set("display_errors",0);error_reporting(0);' /var/www/html/index.php && echo 3\
+   && chown -R www-data:www-data /var/www/html && echo 4\
    && chmod -R 775 /var/www/html
 
 EXPOSE 80
